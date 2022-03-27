@@ -1,3 +1,4 @@
+import 'package:csa_usage_history/screens/home/components/supervisor_photo.dart';
 import 'package:flutter/material.dart';
 
 class ChooseSupervisor extends StatelessWidget {
@@ -9,30 +10,20 @@ class ChooseSupervisor extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return SizedBox(
-      width: size.width / 2,
-      height: size.height,
+    final double itemWidth = size.width / 4;
+    final double itemHeight = size.height / 3;
+
+    return Expanded(
       child: GridView.builder(
-        padding: const EdgeInsets.all(35),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 35,
-          crossAxisSpacing: 35,
+        padding: const EdgeInsets.all(0),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
+          childAspectRatio: (itemWidth / itemHeight),
         ),
         itemCount: photos.length,
         itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {},
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                image: DecorationImage(
-                    image: NetworkImage(
-                      photos[index],
-                    ),
-                    fit: BoxFit.cover),
-              ),
-            ),
+          return SupervisorPhoto(
+            photo: photos[index],
           );
         },
       ),

@@ -36,6 +36,7 @@ dependencies:
   supabase_flutter: ^0.2.12
   window_manager: ^0.2.0
   flutter_svg: ^1.0.3
+  stop_watch_timer:
 
 dev_dependencies:
   flutter_test:
