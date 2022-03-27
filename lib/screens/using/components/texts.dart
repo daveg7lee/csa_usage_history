@@ -2,16 +2,16 @@ import 'package:csa_usage_history/screens/using/components/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
-class Timer extends StatefulWidget {
-  const Timer({Key? key, required this.name}) : super(key: key);
+class Texts extends StatefulWidget {
+  const Texts({Key? key, required this.name}) : super(key: key);
 
   final String name;
 
   @override
-  State<Timer> createState() => _TimerState();
+  State<Texts> createState() => _TextsState();
 }
 
-class _TimerState extends State<Timer> {
+class _TextsState extends State<Texts> {
   final stopWatchTimer = StopWatchTimer(
     mode: StopWatchMode.countUp,
   );

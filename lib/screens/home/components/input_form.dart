@@ -1,5 +1,6 @@
-import 'package:csa_usage_history/components/input.dart';
+import 'package:csa_usage_history/screens/home/components/input.dart';
 import 'package:csa_usage_history/screens/using/using_screen.dart';
+import 'package:csa_usage_history/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -89,10 +90,6 @@ class _InputFormState extends State<InputForm> {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () async {
-                    final now = DateTime.now();
-                    final currentTime =
-                        now.hour.toString() + ":" + now.minute.toString();
-
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
                       Navigator.push(
@@ -102,7 +99,7 @@ class _InputFormState extends State<InputForm> {
                                 name: name,
                                 supervisor: supervisor,
                                 purpose: purpose,
-                                startTime: currentTime,
+                                startTime: getCurrentTime(),
                               )),
                         ),
                       );

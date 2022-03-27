@@ -1,6 +1,6 @@
 import 'package:csa_usage_history/screens/using/body.dart';
+import 'package:csa_usage_history/screens/using/components/exit_alert.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 class UsingScreen extends StatefulWidget {
@@ -50,54 +50,10 @@ class _UsingScreenState extends State<UsingScreen> with WindowListener {
       showDialog(
         context: context,
         builder: (_) {
-          return AlertDialog(
-            title: const Text('Are you sure?'),
-            elevation: 20,
-            titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-            contentTextStyle:
-                const TextStyle(color: Colors.white, fontSize: 15),
-            backgroundColor: Colors.black54,
-            actions: [
-              TextButton(
-                child: const Text('No'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: const Text('Yes'),
-                onPressed: () async {
-                  final now = DateTime.now();
-                  final date = DateTime(now.year, now.month, now.day);
-                  final currentTime =
-                      now.hour.toString() + ":" + now.minute.toString();
-
-                  Navigator.of(context).pop();
-                  final res =
-                      await Supabase.instance.client.from("history").insert([
-                    {
-                      "name": widget.name,
-                      "pc_number": 5,
-                      "supervisor": widget.supervisor,
-                      "purpose": widget.purpose,
-                      "start_time": widget.startTime,
-                      "end_time": currentTime,
-                    }
-                  ]).execute();
-
-                  final error = res.error;
-                  if (error != null) {
-                    print(error);
-                    const AlertDialog(
-                      title: Text("Error occur try again"),
-                    );
-                  } else {
-                    await windowManager.destroy();
-                  }
-                },
-              ),
-            ],
-          );
+          return ExitAlert(
+              name: widget.name,
+              purpose: widget.purpose,
+              supervisor: widget.supervisor);
         },
       );
     }

@@ -17,12 +17,11 @@ Future<void> main() async {
   windowManager.waitUntilReadyToShow().then((_) async {
     await windowManager.setTitleBarStyle('hidden');
     await windowManager.setFullScreen(true);
-    await windowManager.center();
     await windowManager.show();
     await windowManager.setSkipTaskbar(false);
   });
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

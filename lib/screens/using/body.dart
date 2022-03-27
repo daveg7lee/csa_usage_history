@@ -1,4 +1,4 @@
-import 'package:csa_usage_history/screens/using/components/timer.dart';
+import 'package:csa_usage_history/screens/using/components/texts.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatelessWidget {
@@ -11,7 +11,7 @@ class Body extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(color: Colors.black),
       child: Center(
-        child: Timer(name: name),
+        child: Texts(name: name),
       ),
     );
   }
