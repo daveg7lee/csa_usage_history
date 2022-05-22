@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class Input extends StatelessWidget {
-  const Input(
-      {Key? key,
-      required this.placeholder,
-      required this.validator,
-      required this.onSaved})
-      : super(key: key);
+  const Input({
+    Key? key,
+    required this.placeholder,
+    required this.validator,
+    required this.onSaved,
+    required this.defaultValue,
+  }) : super(key: key);
 
   final String placeholder;
   final String? Function(String?)? validator;
   final Function(String?)? onSaved;
+  final String defaultValue;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class Input extends StatelessWidget {
       child: SizedBox(
         width: size.width / 3.5,
         child: TextFormField(
+          initialValue: defaultValue,
           validator: validator,
           onSaved: onSaved,
           decoration: InputDecoration(

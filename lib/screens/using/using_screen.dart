@@ -39,7 +39,12 @@ class _UsingScreenState extends State<UsingScreen> with WindowListener {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(name: widget.name),
+      body: Body(
+        name: widget.name,
+        purpose: widget.purpose,
+        supervisor: widget.supervisor,
+        startTime: widget.startTime,
+      ),
     );
   }
 
@@ -51,9 +56,11 @@ class _UsingScreenState extends State<UsingScreen> with WindowListener {
         context: context,
         builder: (_) {
           return ExitAlert(
-              name: widget.name,
-              purpose: widget.purpose,
-              supervisor: widget.supervisor);
+            name: widget.name,
+            purpose: widget.purpose,
+            supervisor: widget.supervisor,
+            startTime: widget.startTime,
+          );
         },
       );
     }

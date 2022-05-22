@@ -1,4 +1,5 @@
 import 'package:csa_usage_history/screens/home/home_screen.dart';
+import 'package:csa_usage_history/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -15,7 +16,6 @@ Future<void> main() async {
   await windowManager.ensureInitialized();
 
   windowManager.waitUntilReadyToShow().then((_) async {
-    await windowManager.setTitleBarStyle('hidden');
     await windowManager.setFullScreen(true);
     await windowManager.show();
     await windowManager.setSkipTaskbar(false);

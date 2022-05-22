@@ -9,9 +9,10 @@ class ExitAlert extends StatelessWidget {
     required this.name,
     required this.supervisor,
     required this.purpose,
+    required this.startTime,
   }) : super(key: key);
 
-  final String name, supervisor, purpose;
+  final String name, supervisor, purpose, startTime;
 
   @override
   Widget build(BuildContext context) {
@@ -31,32 +32,22 @@ class ExitAlert extends StatelessWidget {
         TextButton(
           child: const Text('Yes'),
           onPressed: () async {
-            final now = DateTime.now();
-            final date = DateTime(now.year, now.month, now.day);
-            final currentTime =
-                now.hour.toString() + ":" + now.minute.toString();
-
             Navigator.of(context).pop();
-            final res = await Supabase.instance.client.from("history").insert([
-              {
-                "name": name,
-                "pc_number": 5,
-                "supervisor": supervisor,
-                "purpose": purpose,
-                "start_time": getCurrentTime(),
-                "end_time": currentTime,
-              }
-            ]).execute();
-
-            final error = res.error;
-            if (error != null) {
-              print(error);
-              const AlertDialog(
-                title: Text("Error occur try again"),
-              );
-            } else {
-              await windowManager.destroy();
-            }
+            final res = insertData(name, supervisor, purpose, startTime);
+            res.then(
+              (ok) async => {
+                if (ok)
+                  {
+                    const AlertDialog(
+                      title: Text("Error occur try again"),
+                    ),
+                  }
+                else
+                  {
+                    await windowManager.destroy(),
+                  }
+              },
+            );
           },
         ),
       ],

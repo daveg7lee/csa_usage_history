@@ -1,11 +1,19 @@
 import 'package:csa_usage_history/screens/using/components/my_text.dart';
+import 'package:csa_usage_history/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
+import 'package:window_manager/window_manager.dart';
 
 class Texts extends StatefulWidget {
-  const Texts({Key? key, required this.name}) : super(key: key);
+  const Texts(
+      {Key? key,
+      required this.name,
+      required this.supervisor,
+      required this.purpose,
+      required this.startTime})
+      : super(key: key);
 
-  final String name;
+  final String name, supervisor, purpose, startTime;
 
   @override
   State<Texts> createState() => _TextsState();
@@ -37,7 +45,41 @@ class _TextsState extends State<Texts> {
           children: <Widget>[
             MyText(word: displayTime),
             const MyText(word: "has passed since"),
-            MyText(word: widget.name + " have started")
+            MyText(word: widget.name + " have started"),
+            Padding(
+              padding: const EdgeInsets.all(30),
+              child: ElevatedButton(
+                onPressed: () {
+                  final res = insertData(
+                    widget.name,
+                    widget.supervisor,
+                    widget.purpose,
+                    widget.startTime,
+                  );
+                  res.then(
+                    (ok) async => {
+                      if (!ok)
+                        {
+                          const AlertDialog(
+                            title: Text("Error occur try again"),
+                          ),
+                        }
+                      else
+                        {
+                          const AlertDialog(
+                            title: Text("History logged!"),
+                          )
+                        }
+                    },
+                  );
+                  Navigator.of(context).pop();
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Done"),
+                ),
+              ),
+            ),
           ],
         );
       },

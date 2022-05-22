@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class InputForm extends StatefulWidget {
-  const InputForm({Key? key, required this.supervisors}) : super(key: key);
-
-  final List<String> supervisors;
+  const InputForm({Key? key}) : super(key: key);
 
   @override
   State<InputForm> createState() => _InputFormState();
@@ -23,106 +21,116 @@ class _InputFormState extends State<InputForm> {
     String purpose = '';
     String supervisor = '';
 
-    return Expanded(
-      child: Center(
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 70),
-                child: SvgPicture.asset("assets/logo.svg"),
+    return Form(
+      key: formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(bottom: 20),
+            child: Text(
+              "Computer\nSupervising\nAssociation",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w500,
+                height: 1.3,
               ),
-              Input(
-                placeholder: "Name",
-                validator: (val) {
-                  if (val == "") {
-                    return "plz write your name";
-                  }
-                },
-                onSaved: (val) {
+            ),
+          ),
+          Input(
+            defaultValue: "",
+            placeholder: "Name",
+            validator: (val) {
+              if (val == "") {
+                return "plz write your name";
+              }
+            },
+            onSaved: (val) {
+              setState(() {
+                if (val != null) {
                   setState(() {
-                    if (val != null) {
-                      setState(() {
-                        name = val;
-                      });
-                    }
+                    name = val;
                   });
-                },
-              ),
-              Input(
-                placeholder: "Purpose",
-                validator: (val) {
-                  if (val == "") {
-                    return "plz write your purpose";
-                  }
-                },
-                onSaved: (val) {
+                }
+              });
+            },
+          ),
+          Input(
+            defaultValue: "",
+            placeholder: "Purpose",
+            validator: (val) {
+              if (val == "") {
+                return "plz write your purpose";
+              }
+            },
+            onSaved: (val) {
+              setState(() {
+                if (val != null) {
                   setState(() {
-                    if (val != null) {
-                      setState(() {
-                        purpose = val;
-                      });
-                    }
+                    purpose = val;
                   });
-                },
-              ),
-              Input(
-                placeholder: "Supervisor",
-                validator: (val) {
-                  if (val == "") {
-                    return "plz write your supervisor";
-                  }
-                },
-                onSaved: (val) {
+                }
+              });
+            },
+          ),
+          Input(
+            defaultValue: "",
+            placeholder: "Supervisor",
+            validator: (val) {
+              if (val == "") {
+                return "plz write your supervisor";
+              }
+            },
+            onSaved: (val) {
+              setState(() {
+                if (val != null) {
                   setState(() {
-                    if (val != null) {
-                      setState(() {
-                        supervisor = val;
-                      });
-                    }
+                    supervisor = val;
                   });
-                },
-              ),
-              SizedBox(
-                width: size.width / 3.5,
-                height: 45,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: ((context) => UsingScreen(
-                                name: name,
-                                supervisor: supervisor,
-                                purpose: purpose,
-                                startTime: getCurrentTime(),
-                              )),
-                        ),
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.red,
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Start",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+                }
+              });
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: SizedBox(
+              width: size.width / 3.5,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () async {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => UsingScreen(
+                              name: name,
+                              supervisor: supervisor,
+                              purpose: purpose,
+                              startTime: getCurrentTime(),
+                            )),
                       ),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                ),
+                child: const Center(
+                  child: Text(
+                    "Start",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
                     ),
                   ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
