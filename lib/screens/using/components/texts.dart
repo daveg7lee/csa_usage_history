@@ -71,16 +71,6 @@ class _TextsState extends State<Texts> {
                         }
                       else
                         {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext ctx) {
-                              return const AlertDialog(
-                                title: Text("History logged!"),
-                              );
-                            },
-                          ),
-                          await Future.delayed(
-                              const Duration(seconds: 2), () {}),
                           Navigator.of(context).pop(),
                         }
                     },
