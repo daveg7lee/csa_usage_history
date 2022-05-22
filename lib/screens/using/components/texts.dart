@@ -49,7 +49,7 @@ class _TextsState extends State<Texts> {
             Padding(
               padding: const EdgeInsets.all(30),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   final res = insertData(
                     widget.name,
                     widget.supervisor,
@@ -57,22 +57,34 @@ class _TextsState extends State<Texts> {
                     widget.startTime,
                   );
                   res.then(
-                    (ok) async => {
-                      if (!ok)
+                    (res) async => {
+                      if (res.error != null)
                         {
-                          const AlertDialog(
-                            title: Text("Error occur try again"),
-                          ),
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text(res.error!.message),
+                              );
+                            },
+                          )
                         }
                       else
                         {
-                          const AlertDialog(
-                            title: Text("History logged!"),
-                          )
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext ctx) {
+                              return const AlertDialog(
+                                title: Text("History logged!"),
+                              );
+                            },
+                          ),
+                          await Future.delayed(
+                              const Duration(seconds: 2), () {}),
+                          Navigator.of(context).pop(),
                         }
                     },
                   );
-                  Navigator.of(context).pop();
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),

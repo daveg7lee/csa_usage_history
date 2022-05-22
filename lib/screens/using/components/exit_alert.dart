@@ -1,6 +1,5 @@
 import 'package:csa_usage_history/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 class ExitAlert extends StatelessWidget {
@@ -35,11 +34,11 @@ class ExitAlert extends StatelessWidget {
             Navigator.of(context).pop();
             final res = insertData(name, supervisor, purpose, startTime);
             res.then(
-              (ok) async => {
-                if (ok)
+              (res) async => {
+                if (res.error != null)
                   {
-                    const AlertDialog(
-                      title: Text("Error occur try again"),
+                    AlertDialog(
+                      title: Text(res.error!.message),
                     ),
                   }
                 else

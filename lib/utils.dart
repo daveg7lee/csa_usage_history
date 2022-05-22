@@ -6,7 +6,8 @@ String getCurrentTime() {
   return now.hour.toString() + ":" + now.minute.toString();
 }
 
-Future<bool> insertData(name, supervisor, purpose, startTime) async {
+Future<PostgrestResponse<dynamic>> insertData(
+    name, supervisor, purpose, startTime) async {
   final prefs = await SharedPreferences.getInstance();
 
   final res = await Supabase.instance.client.from("history").insert([
@@ -19,8 +20,6 @@ Future<bool> insertData(name, supervisor, purpose, startTime) async {
       "end_time": getCurrentTime(),
     }
   ]).execute();
-  if (res.error != null) {
-    return false;
-  }
-  return true;
+
+  return res;
 }
