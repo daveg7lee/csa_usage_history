@@ -15,7 +15,6 @@ Future<void> main() async {
   await windowManager.ensureInitialized();
 
   windowManager.waitUntilReadyToShow().then((_) async {
-    await windowManager.setFullScreen(true);
     await windowManager.show();
     await windowManager.setSkipTaskbar(false);
   });
